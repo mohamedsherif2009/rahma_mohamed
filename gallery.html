@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- السطر ده السحري اللي بيعرف الموبايل إن الشاشة دي موبايل ويكبر كل حاجة تلقائي -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Our Memories</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cairo:wght=600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght=700&family=Cairo:wght=600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -12,7 +14,6 @@
             font-family: 'Cairo', sans-serif; overflow: hidden; position: relative;
         }
 
-        /* مطر القلوب العادية وقلوب رحمة */
         .falling { position: absolute; top: -50px; pointer-events: none; animation: fall linear infinite; z-index: 1; }
         .rahma-heart {
             background: #d81b60; color: white; padding: 6px 12px; border-radius: 20px;
@@ -23,22 +24,30 @@
         
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
 
-        /* تكبير الكلام والفقاعات عشان الموبايل */
+        /* كتل الكلام بقت تملى الشاشة وواضحة جداً */
         .story-line {
-            position: absolute; padding: 14px 24px; border-radius: 25px;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(5px);
-            font-size: 1.4rem; color: #5c0632; font-weight: 700; /* كبرنا الخط هنا */
+            position: absolute; padding: 12px 20px; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(5px);
+            font-size: 5vw; /* الحجم هنا معتمد على عرض شاشة الموبايل يعني هيطلع كبير ومناسب */
+            color: #5c0632; font-weight: 700;
             opacity: 0; transform: scale(0.6);
-            box-shadow: 0 6px 20px rgba(212, 28, 101, 0.15);
+            box-shadow: 0 5px 15px rgba(212, 28, 101, 0.15);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 10;
             direction: rtl;
             width: max-content;
+            max-width: 85%;
             white-space: nowrap;
         }
-        .english-text { font-family: 'Caveat', cursive; font-size: 2.2rem; color: #d81b60; direction: ltr; }
+        
+        /* تظبيط خاص للشاشات الكبيرة عشان الكلام ميبقاش عملاق */
+        @media (min-width: 600px) {
+            .story-line { font-size: 1.5rem; }
+            .english-text { font-size: 2.2rem !important; }
+        }
 
-        /* حاوية الصور المربعة الأصيلة */
+        .english-text { font-family: 'Caveat', cursive; font-size: 7vw; color: #d81b60; direction: ltr; }
+
         .gallery-container {
             display: none; grid-template-columns: repeat(2, 1fr); gap: 15px;
             z-index: 50; padding: 15px; background-color: #fdf2f4;
@@ -51,7 +60,6 @@
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
         .show-img { opacity: 1; transform: scale(1); }
 
-        /* التوقيع */
         .animated-signature {
             position: absolute; bottom: 25px; font-family: 'Caveat', cursive;
             font-size: 2.4rem; color: #b80d4f; font-weight: bold; z-index: 60;
@@ -126,8 +134,7 @@
                     div.className = 'story-line' + (text.includes('Happy') || text.includes('Love') ? ' english-text' : '');
                     div.innerText = text;
                     
-                    // توزيع متباعد ومريح عشان الخط بقا كبير
-                    div.style.top = (10 + (i * 8.8)) + '%';
+                    div.style.top = (10 + (i * 9)) + '%';
                     if (i === 8) {
                         div.style.left = '50%';
                         div.style.transform = 'translateX(-50%) scale(0.6)';

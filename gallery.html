@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Our Memories</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght=700&family=Cairo:wght=600;700&display=swap" rel="stylesheet">
     <style>
@@ -24,32 +23,19 @@
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
 
         .story-line {
-            position: absolute; padding: 12px 20px; border-radius: 20px;
-            background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(5px);
-            font-size: 5vw; 
-            color: #5c0632; font-weight: 700;
+            position: absolute; padding: 12px 18px; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px);
+            font-size: 1.05rem; color: #5c0632; font-weight: 700;
             opacity: 0; transform: scale(0.6);
-            box-shadow: 0 5px 15px rgba(212, 28, 101, 0.15);
+            box-shadow: 0 5px 15px rgba(212, 28, 101, 0.1);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 10;
             direction: rtl;
+            max-width: 75%;
             width: max-content;
-            max-width: 85%;
             white-space: nowrap;
         }
-        
-        /* تظبيط الفقاعة قبل الأخيرة عشان الكلام كله يفرش جواها براحته وماتتقصش */
-        .story-line.wide-bubble {
-            max-width: 95% !important;
-            padding: 12px 25px !important;
-        }
-        
-        @media (min-width: 600px) {
-            .story-line { font-size: 1.5rem; }
-            .english-text { font-size: 2.2rem !important; }
-        }
-
-        .english-text { font-family: 'Caveat', cursive; font-size: 7vw; color: #d81b60; direction: ltr; }
+        .english-text { font-family: 'Caveat', cursive; font-size: 1.6rem; color: #d81b60; direction: ltr; }
 
         .gallery-container {
             display: none; grid-template-columns: repeat(2, 1fr); gap: 15px;
@@ -63,10 +49,10 @@
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
         .show-img { opacity: 1; transform: scale(1); }
 
-        /* رفعنا التوقيع لفوق سنة بسيطة عشان يبان */
+        /* التوقيع ارفع سنة كمان عشان يبان تماماً */
         .animated-signature {
-            position: absolute; bottom: 45px; font-family: 'Caveat', cursive;
-            font-size: 2.4rem; color: #b80d4f; font-weight: bold; z-index: 60;
+            position: absolute; bottom: 50px; font-family: 'Caveat', cursive;
+            font-size: 2.1rem; color: #b80d4f; font-weight: bold; z-index: 60;
             opacity: 0; transition: opacity 1s ease;
         }
     </style>
@@ -114,14 +100,14 @@
                 
                 if (isRahmaHeart) {
                     el.className = 'falling rahma-heart';
-                    el.innerText = 'Rahma ♥ {cite: 1, 2}';
+                    el.innerText = 'Rahma ♥️';
                 } else {
                     el.className = 'falling';
                     el.innerText = items[Math.floor(Math.random() * items.length)];
                     el.style.fontSize = Math.random() * 20 + 15 + 'px';
                 }
                 
-                el.style.left = Math.random() * 80 + 'vw';
+                el.style.left = Math.random() * 85 + 'vw';
                 el.style.animationDuration = Math.random() * 2 + 4 + 's';
                 document.body.appendChild(el);
                 setTimeout(() => el.remove(), 5500);
@@ -135,25 +121,23 @@
             lines.forEach((text, i) => {
                 setTimeout(() => {
                     const div = document.createElement('div');
-                    
-                    // هنا بنضيف التظبيط الخاص بالفقاعة قبل الأخيرة (الموقع رقم 7 في المصفوفة)
-                    let classList = 'story-line';
-                    if (text.includes('Happy') || text.includes('Love')) {
-                        classList += ' english-text';
-                    }
-                    if (i === 7) {
-                        classList += ' wide-bubble';
-                    }
-                    div.className = classList;
+                    div.className = 'story-line' + (text.includes('Happy') || text.includes('Love') ? ' english-text' : '');
                     div.innerText = text;
                     
-                    div.style.top = (10 + (i * 9)) + '%';
+                    div.style.top = (12 + (i * 8.5)) + '%';
+                    
+                    // تطويل الفقاعة قبل الأخيرة وتظبيط مكانها
+                    if (i === 7) {
+                        div.style.minWidth = '320px';
+                        div.style.maxWidth = '90%';
+                    }
+
                     if (i === 8) {
                         div.style.left = '50%';
                         div.style.transform = 'translateX(-50%) scale(0.6)';
                     } else {
-                        div.style.left = (i % 2 === 0) ? '4%' : 'auto';
-                        div.style.right = (i % 2 === 0) ? 'auto' : '4%';
+                        div.style.left = (i % 2 === 0) ? '5%' : 'auto';
+                        div.style.right = (i % 2 === 0) ? 'auto' : '5%';
                     }
                     
                     container.appendChild(div);

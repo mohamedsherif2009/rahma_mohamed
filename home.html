@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Ya Ro7y</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            height: 100vh; background: radial-gradient(circle, #fce4ec 0%, #f8bbd0 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Poppins', sans-serif; overflow: hidden; position: relative;
+        }
+        .surprise-card {
+            background-color: #fdf2f4; background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
+            width: 90%; max-width: 400px; border-radius: 50px; padding: 50px 30px; text-align: center;
+            box-shadow: 0 20px 45px rgba(212, 28, 101, 0.2); border: 4px solid #ffffff;
+            animation: fadeInCard 0.5s ease-out; z-index: 10;
+        }
+        .wishes-text { font-family: 'Caveat', cursive; font-size: 2.9rem; color: #5c0632; line-height: 1.3; margin-bottom: 15px; }
+        .age-container { font-size: 4.8rem; font-weight: bold; color: #bd1a5d; margin-bottom: 35px; display: inline-block; animation: bounceAge 2s infinite ease-in-out; }
+        .next-btn {
+            width: 80%; padding: 15px; border-radius: 35px; border: none;
+            background: linear-gradient(135deg, #b80d4f 0%, #800432 100%); color: #ffffff;
+            font-size: 1.3rem; font-weight: 600; cursor: pointer; box-shadow: 0 8px 20px rgba(128, 4, 50, 0.25); transition: all 0.3s ease; outline: none;
+        }
+        .next-btn:hover { background: linear-gradient(135deg, #ce145d 0%, #94073d 100%); transform: translateY(-3px); }
+        .animated-signature { margin-top: 30px; font-family: 'Pinyon Script', cursive; font-size: 2.5rem; color: #b80d4f; font-weight: bold; z-index: 10; animation: fadeInOut 4s infinite ease-in-out; }
+        .falling-element { position: absolute; top: -50px; pointer-events: none; animation: fall linear infinite; z-index: 1; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
+        @keyframes fadeInCard { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounceAge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes fadeInOut { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <!-- تشغيل فوري وبدون أي عوائق متصفح -->
+    <audio id="bgMusic" autoplay>
+        <source src="https://serv100.albumaty.com/song2022/Albumaty.Com_ramy_sbri_kl_snt.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="surprise-card">
+        <div class="wishes-text">Happy birthday<br>Ya Ro7y♥️😍</div>
+        <div class="age-container">15👑</div>
+        <br>
+        <button class="next-btn" onclick="goToNextPage()">Next</button>
+    </div>
+
+    <div class="animated-signature">By / Mohamed Sherif</div>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+        audio.currentTime = 103; 
+        audio.play().catch(() => {
+            // كود أمان احتياطي
+            document.addEventListener('click', () => { audio.play(); }, { once: true });
+        });
+
+        createFallingElements();
+
+        function createFallingElements() {
+            const elements = ['🌸', '💖', '🌹', '✨', '❤️'];
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.classList.add('falling-element');element.innerText = elements[Math.floor(Math.random() * elements.length)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.fontSize = Math.random() * 20 + 15 + 'px';
+                element.style.animationDuration = Math.random() * 2 + 3 + 's';
+                document.body.appendChild(element);
+                setTimeout(() => { element.remove(); }, 5000);
+            }, 250); 
+        }
+
+        function goToNextPage() {
+            window.location.href = "gallery.html";
+        }
+    </script>
+</body>
+</html>

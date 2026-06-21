@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wish Lock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            height: 100vh; background: radial-gradient(circle, #fbe9ee 0%, #f3b0c3 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Poppins', sans-serif; overflow: hidden;
+        }
+        .wish-card {
+            background-color: #ffeef2; background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
+            width: 90%; max-width: 390px; border-radius: 50px; padding: 40px 25px; text-align: center;
+            box-shadow: 0 20px 45px rgba(212, 28, 101, 0.15); border: 4px solid #ffffff; position: relative;
+        }
+        .premium-lock { width: 90px; height: 120px; margin: 0 auto 20px auto; position: relative; filter: drop-shadow(0 8px 15px rgba(181, 122, 2, 0.3)); }
+        .lock-loop { width: 64px; height: 65px; border: 11px solid #e5ad35; border-bottom: none; border-radius: 35px 35px 0 0; position: absolute; top: 0; left: 13px; }
+        .lock-base { width: 90px; height: 75px; background: linear-gradient(135deg, #ffeaa7 0%, #f1b82d 35%, #f39c12 70%, #b37402 100%); border-radius: 18px; position: absolute; bottom: 0; border: 1px solid #f7ca5e; box-shadow: inset 0 2px 5px rgba(255,255,255,0.8), 0 4px 10px rgba(0,0,0,0.15); display: flex; justify-content: center; align-items: center; }
+        .diamond-hearts { position: relative; width: 50px; height: 40px; }
+        .diamond-hearts::before, .diamond-hearts::after { content: "❤"; position: absolute; font-size: 1.8rem; color: #ffffff; text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 9px #e67e22, 1px 1px 2px rgba(0,0,0,0.4); }
+        .diamond-hearts::before { left: 3px; top: 2px; transform: rotate(-15px) scale(0.9); opacity: 0.85; }
+        .diamond-hearts::after { left: 18px; top: -2px; transform: rotate(10px); z-index: 2; }
+        .main-title { font-size: 1.6rem; color: #4a0329; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .sub-title { font-size: 1.05rem; color: #c2185b; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .input-wrapper { margin-bottom: 25px; }
+        #passInput { width: 100%; padding: 15px 20px; border-radius: 35px; border: 1.5px solid #fbc4d1; font-size: 1.05rem; text-align: center; outline: none; background-color: #ffffff; color: #555; box-shadow: inset 0 3px 6px rgba(0,0,0,0.03), 0 4px 15px rgba(212, 28, 101, 0.05); }
+        .hint { font-size: 0.88rem; color: #880e4f; margin-top: 10px; font-style: italic; }
+        .celebrate-btn { width: 100%; padding: 16px; border-radius: 35px; border: none; background: linear-gradient(135deg, #b80d4f 0%, #800432 100%); color: #ffffff; font-size: 1.25rem; font-weight: 600; cursor: pointer; box-shadow: 0 8px 20px rgba(128, 4, 50, 0.25); transition: all 0.2s ease; }
+        .celebrate-btn:hover { background: linear-gradient(135deg, #ce145d 0%, #94073d 100%); transform: translateY(-1.5px); }
+        .signature { margin-top: 30px; font-family: 'Pinyon Script', cursive; font-size: 2.3rem; color: #b80d4f; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <!-- استدعاء الصوت مسبقاً هنا لمنع التأخير -->
+    <audio id="preAudio" preload="auto">
+        <source src="https://serv100.albumaty.com/song2022/Albumaty.Com_ramy_sbri_kl_snt.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="wish-card"><div class="premium-lock"><div class="lock-loop"></div><div class="lock-base"><div class="diamond-hearts"></div></div></div>
+        <h1 class="main-title">Birthday Wish Lock <span style="color: #e91e63;">💖</span>🎂</h1>
+        <p class="sub-title"><span style="color: #d81b60;">❤</span> Open your present</p>
+        <div class="input-wrapper">
+            <input type="password" id="passInput" placeholder="Enter the special password">
+            <p class="hint">hint: our date</p>
+        </div>
+        <button class="celebrate-btn" onclick="checkPassword()">Let's Celebrate!</button>
+    </div>
+    <div class="signature">By / Mohamed Sherif</div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('passInput').value;
+            if (password === "2672011") { 
+                // تشغيل الصوت فوراً عند الضغط لتفادي حظر الكروم
+                const audio = document.getElementById('preAudio');
+                audio.currentTime = 103; 
+                audio.play();
+                
+                // الانتقال اللحظي الفوري
+                window.location.href = "home.html"; 
+            } else {
+                alert("الباسورد غلط، حاولي تاني! ❌");
+            }
+        }
+    </script>
+</body>
+</html>

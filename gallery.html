@@ -23,34 +23,38 @@
         
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
 
-        /* كتل الكلام */
+        /* تكبير الكلام والفقاعات عشان الموبايل */
         .story-line {
-            position: absolute; padding: 12px 20px; border-radius: 20px;
-            background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(5px);
-            font-size: 1.15rem; color: #5c0632; font-weight: 700;
+            position: absolute; padding: 14px 24px; border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(5px);
+            font-size: 1.4rem; color: #5c0632; font-weight: 700; /* كبرنا الخط هنا */
             opacity: 0; transform: scale(0.6);
-            box-shadow: 0 5px 15px rgba(212, 28, 101, 0.08);
+            box-shadow: 0 6px 20px rgba(212, 28, 101, 0.15);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 10;
+            direction: rtl;
+            width: max-content;
+            white-space: nowrap;
         }
-        .english-text { font-family: 'Caveat', cursive; font-size: 1.8rem; color: #d81b60; }
+        .english-text { font-family: 'Caveat', cursive; font-size: 2.2rem; color: #d81b60; direction: ltr; }
 
         /* حاوية الصور المربعة الأصيلة */
         .gallery-container {
-            display: none; grid-template-columns: repeat(2, 1fr); gap: 20px;
-            z-index: 50; padding: 20px; background-color: #fdf2f4;
+            display: none; grid-template-columns: repeat(2, 1fr); gap: 15px;
+            z-index: 50; padding: 15px; background-color: #fdf2f4;
             background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
-            border-radius: 40px; border: 4px solid #ffffff;
+            border-radius: 35px; border: 4px solid #ffffff;
             box-shadow: 0 20px 45px rgba(212, 28, 101, 0.2);
+            width: 90%; max-width: 360px;
         }
-        .img-box { width: 145px; height: 145px; border-radius: 22px; border: 3px solid #fff; box-shadow: 0 8px 15px rgba(0,0,0,0.08); overflow: hidden; opacity: 0; transform: scale(0.5); transition: 0.6s; }
+        .img-box { width: 100%; aspect-ratio: 1 / 1; border-radius: 20px; border: 3px solid #fff; box-shadow: 0 6px 12px rgba(0,0,0,0.08); overflow: hidden; opacity: 0; transform: scale(0.5); transition: 0.6s; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
         .show-img { opacity: 1; transform: scale(1); }
 
         /* التوقيع */
         .animated-signature {
             position: absolute; bottom: 25px; font-family: 'Caveat', cursive;
-            font-size: 2.3rem; color: #b80d4f; font-weight: bold; z-index: 60;
+            font-size: 2.4rem; color: #b80d4f; font-weight: bold; z-index: 60;
             opacity: 0; transition: opacity 1s ease;
         }
     </style>
@@ -76,7 +80,9 @@
         const audio = document.getElementById('storyMusic');
         audio.currentTime = 122; 
 
-        document.addEventListener('click', () => { audio.play(); }, { once: true });const lines = [
+        document.addEventListener('click', () => { audio.play(); }, { once: true });
+
+        const lines = [
             "كل سنه وانتي طيبه ينور عيني ♥️🫂",
             "كل سنه وانتي معايا وانا معاكي ♥️🫂",
             "كل سنه وانتي قارفانا ومجننانا 🙄😂",
@@ -88,11 +94,10 @@
             "I Love yooou😘"
         ];
 
-        // دالة توليد مطر القلوب العادية + قلوب باسم رحمة
         function createFallingElements() {
             const items = ['🌸', '💖', '🌹', '✨', '❤️'];
             setInterval(() => {
-                const isRahmaHeart = Math.random() > 0.7; // 30% من القلوب هيكون مكتوب فيها رحمة
+                const isRahmaHeart = Math.random() > 0.7; 
                 const el = document.createElement('div');
                 
                 if (isRahmaHeart) {
@@ -104,7 +109,7 @@
                     el.style.fontSize = Math.random() * 20 + 15 + 'px';
                 }
                 
-                el.style.left = Math.random() * 90 + 'vw';
+                el.style.left = Math.random() * 80 + 'vw';
                 el.style.animationDuration = Math.random() * 2 + 4 + 's';
                 document.body.appendChild(el);
                 setTimeout(() => el.remove(), 5500);
@@ -121,20 +126,21 @@
                     div.className = 'story-line' + (text.includes('Happy') || text.includes('Love') ? ' english-text' : '');
                     div.innerText = text;
                     
-                    div.style.top = (12 + (i * 8.5)) + '%';
+                    // توزيع متباعد ومريح عشان الخط بقا كبير
+                    div.style.top = (10 + (i * 8.8)) + '%';
                     if (i === 8) {
                         div.style.left = '50%';
                         div.style.transform = 'translateX(-50%) scale(0.6)';
                     } else {
-                        div.style.left = (i % 2 === 0) ? '6%' : 'auto';
-                        div.style.right = (i % 2 === 0) ? 'auto' : '6%';
+                        div.style.left = (i % 2 === 0) ? '4%' : 'auto';
+                        div.style.right = (i % 2 === 0) ? 'auto' : '4%';
                     }
                     
                     container.appendChild(div);
                     
                     setTimeout(() => { 
                         if(i === 8) {
-                            div.style.opacity = '1'; div.style.transform = 'translateX(-50%) scale(1.1)';
+                            div.style.opacity = '1'; div.style.transform = 'translateX(-50%) scale(1)';
                         } else {
                             div.style.opacity = '1'; div.style.transform = 'scale(1)'; 
                         }
@@ -142,9 +148,8 @@
                 }, i * 2000); 
             });
 
-            // الاختفاء الفوري وبدء عرض الصور دون أي انتظار رخيم
             setTimeout(() => {
-                container.style.transition = 'opacity 0.3s ease'; // اختفاء سريع جداً للكلام
+                container.style.transition = 'opacity 0.3s ease'; 
                 container.style.opacity = '0';
                 
                 setTimeout(() => {
@@ -152,14 +157,15 @@
                     const gallery = document.getElementById('galleryBox');
                     gallery.style.display = 'grid'; 
                     
-                    // ظهور الصور ورا بعضها فوراً
                     setTimeout(() => document.getElementById('img1').classList.add('show-img'), 100);
                     setTimeout(() => document.getElementById('img2').classList.add('show-img'), 500);
                     setTimeout(() => document.getElementById('img3').classList.add('show-img'), 900);
                     setTimeout(() => document.getElementById('img4').classList.add('show-img'), 1300);
                     
                     setTimeout(() => { document.getElementById('siteSig').style.opacity = '1'; }, 1800);
-                }, 300);}, (lines.length - 1) * 2000 + 1500); // اتظبط الوقت بالملي عشان يقلب فوري بعد آخر جملة
+                }, 300);
+
+            }, (lines.length - 1) * 2000 + 1500); 
         }
 
         window.onload = startStory;
